@@ -1,24 +1,27 @@
 {% extends "base.html" %}
 {% block content %}
-<h4>{{ 'Add SQL Server Instance' if not target else 'Edit SQL Server Instance' }}</h4>
+<h4>{{ 'Add Oracle Database' if not target else 'Edit Oracle Database' }}</h4>
 <form method="post">
   <div class="row g-3">
     <div class="col-md-2"><label class="form-label">S.NO</label><input class="form-control" name="s_no" value="{{target.S_NO if target}}"></div>
-    <div class="col-md-4"><label class="form-label">Instance Name</label><input class="form-control" name="instance_name" value="{{target.INSTANCE_NAME if target}}" required></div>
+    <div class="col-md-3"><label class="form-label">DB Name</label><input class="form-control" name="db_name" value="{{target.DB_NAME if target}}" required></div>
     <div class="col-md-3"><label class="form-label">Environment</label><input class="form-control" name="environment" value="{{target.ENVIRONMENT if target}}" required></div>
-    <div class="col-md-3"><label class="form-label">Host</label><input class="form-control" name="host" value="{{target.HOST if target}}"></div>
-    <div class="col-md-3"><label class="form-label">Version</label><input class="form-control" name="version" value="{{target.VERSION if target}}"></div>
+    <div class="col-md-4"><label class="form-label">Host</label><input class="form-control" name="host" value="{{target.HOST if target}}" required></div>
+    <div class="col-md-3"><label class="form-label">DB Version</label><input class="form-control" name="db_version" value="{{target.DB_VERSION if target}}"></div>
     <div class="col-md-3">
-      <label class="form-label">Auth Mode</label>
-      <select class="form-select" name="auth_mode">
-        {% for m in ['SQL','WINDOWS'] %}
-          <option value="{{m}}" {% if target and target.AUTH_MODE==m %}selected{% endif %}>{{m}}</option>
+      <label class="form-label">Method</label>
+      <select class="form-select" name="method">
+        {% for m in ['THIN','TNS'] %}
+          <option value="{{m}}" {% if target and target.METHOD==m %}selected{% endif %}>{{m}}</option>
         {% endfor %}
       </select>
     </div>
-    <div class="col-md-3"><label class="form-label">Username</label><input class="form-control" name="username" value="{{target.USERNAME if target}}"></div>
-    <div class="col-md-3"><label class="form-label">Password</label><input class="form-control" name="password" value="{{target.password if target}}"></div>
-    <div class="col-md-3"><label class="form-label">Domain (Windows Auth)</label><input class="form-control" name="domain" value="{{target.DOMAIN if target}}"></div>
+    <div class="col-md-3"><label class="form-label">TNS Alias</label><input class="form-control" name="tns_alias" value="{{target.TNS_ALIAS if target}}"></div>
+    <div class="col-md-3"><label class="form-label">Host Name</label><input class="form-control" name="host_name" value="{{target.HOST_NAME if target}}"></div>
+    <div class="col-md-2"><label class="form-label">Port</label><input class="form-control" name="port" value="{{target.PORT if target}}"></div>
+    <div class="col-md-4"><label class="form-label">Service Name</label><input class="form-control" name="service_name" value="{{target.SERVICE_NAME if target}}"></div>
+    <div class="col-md-3"><label class="form-label">Common User</label><input class="form-control" name="common_user" value="{{target.COMMON_USER if target}}" required></div>
+    <div class="col-md-3"><label class="form-label">Common Password</label><input class="form-control" name="common_password" value="{{target.common_password if target}}" required></div>
     <div class="col-md-2 form-check form-switch mt-4">
       <input class="form-check-input" type="checkbox" name="is_active" {% if not target or target.IS_ACTIVE==1 %}checked{% endif %}>
       <label class="form-check-label">Active</label>
