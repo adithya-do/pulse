@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="d-flex justify-content-between align-items-center mb-3">
+  <h4>SQL Server Instances</h4>
+  <a href="/sqlserver/target/new" class="btn btn-sm btn-success">+ Add Instance</a>
+</div>
+<table class="table table-bordered table-sm align-middle">
+  <thead><tr>
+    <th>S.NO</th><th>Instance</th><th>Env</th><th>Host</th><th>Version</th><th>Auth</th><th>Status</th><th>Last Check</th><th>Check Status</th><th>Error</th><th>Actions</th>
+  </tr></thead>
+  <tbody>
+  {% for t in targets %}
+    <tr>
+      <td>{{t.S_NO}}</td>
+      <td>{{t.INSTANCE_NAME}}</td>
+      <td>{{t.ENVIRONMENT}}</td>
+      <td>{{t.HOST}}</td>
+      <td>{{t.VERSION}}</td>
+      <td>{{t.AUTH_MODE}}</td>
+      <td>{{t.STATUS}}</td>
+      <td>{{t.LAST_CHECK or '-'}}</td>
+      <td>{{t.CHECK_STATUS or '-'}}</td>
+      <td class="text-danger" style="max-width:200px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;">{{t.ERROR_MSG or ''}}</td>
+      <td>
+        <form method="post" action="/sqlserver/target/{{t.TARGET_ID}}/check" style="display:inline"><button class="btn btn-sm btn-outline-primary">Run Check</button></form>
+        <a class="btn btn-sm btn-outline-secondary" href="/sqlserver/target/{{t.TARGET_ID}}/edit">Edit</a>
+      </td>
+    </tr>
+  {% endfor %}
+  </tbody>
+</table>
+{% endblock %}
