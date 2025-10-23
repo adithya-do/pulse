@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="row justify-content-center">
+  <div class="col-12 col-md-6">
+    <div class="card shadow-sm">
+      <div class="card-body">
+        <h4 class="mb-3">Forgot Password</h4>
+        {% if sent %}
+          <div class="alert alert-info">If the account exists, a temporary password has been emailed.</div>
+        {% endif %}
+        <form method="post">
+          <div class="mb-3">
+            <label class="form-label">Login ID</label>
+            <input type="text" class="form-control" name="login_id" required>
+          </div>
+          <button class="btn btn-primary" type="submit">Send Reset</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}
