@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+{% block content %}
+<h4>{{ 'New User' if not user else 'Edit User' }}</h4>
+<form method="post">
+  {% if user %}
+  <div class="mb-3"><label class="form-label">Login ID</label><input class="form-control" value="{{user.LOGIN_ID}}" disabled></div>
+  {% else %}
+  <div class="mb-3"><label class="form-label">Login ID</label><input class="form-control" name="login_id" required></div>
+  {% endif %}
+  <div class="mb-3"><label class="form-label">Full Name</label><input class="form-control" name="full_name" value="{{user.FULL_NAME if user}}" required></div>
+  <div class="mb-3"><label class="form-label">Email</label><input class="form-control" type="email" name="email" value="{{user.EMAIL if user}}" required></div>
+  <div class="mb-3">
+    <label class="form-label">Role</label>
+    <select class="form-select" name="role">
+      {% for r in ['ADMIN','SUPER','USER'] %}
+        <option value="{{r}}" {% if user and user.ROLE==r %}selected{% endif %}>{{r}}</option>
+      {% endfor %}
+    </select>
+  </div>
+  <div class="form-check form-switch mb-3">
+    <input class="form-check-input" type="checkbox" role="switch" name="active" {% if not user or user.ACTIVE==1 %}checked{% endif %}>
+    <label class="form-check-label">Active</label>
+  </div>
+  <div class="mb-3"><label class="form-label">Password {% if user %}(leave blank to keep){% endif %}</label><input class="form-control" type="password" name="password" {% if not user %}required{% endif %}></div>
+  <button class="btn btn-primary" type="submit">Save</button>
+</form>
+{% endblock %}
